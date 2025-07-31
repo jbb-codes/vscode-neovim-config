@@ -72,6 +72,10 @@ Custom keybindings and settings optimized for VSCode integration with Neovim.
 
 ## Usage Notes
 
+This configuration file is used in conjunction with VSCode `settings.json` and `keybindings.json` for optimal integration and functionality.
+
+**Related Repository**: For the complete VSCode setup, see my [VSCode Configuration](https://github.com/jbb-codes/VSCode-config) repository which contains the corresponding `settings.json` and `keybindings.json` files.
+
 - These keybindings are specifically designed for the VSCode Neovim integration
 - All VSCode actions are called through `require('vscode').action()`
 - Leader key combinations provide quick access to common VSCode functionality
