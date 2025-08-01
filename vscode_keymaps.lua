@@ -20,6 +20,12 @@ keymap("n", "<leader>,", "<cmd>lua require('vscode').action('workbench.action.sh
 -- <leader>h : Move focus to the editor group to the left
 keymap("n", "<leader>h", "<cmd>lua require('vscode').action('workbench.action.navigateLeft')<CR>")
 
+-- <leader>j : Move focus to the editor group below
+keymap("n", "<leader>j", "<cmd>lua require('vscode').action('workbench.action.navigateDown')<CR>")
+
+-- <leader>k : Move focus to the editor group above
+keymap("n", "<leader>k", "<cmd>lua require('vscode').action('workbench.action.navigateUp')<CR>")
+
 -- <leader>l : Move focus to the editor group to the right
 keymap("n", "<leader>l", "<cmd>lua require('vscode').action('workbench.action.navigateRight')<CR>")
 
@@ -183,11 +189,8 @@ keymap("n", "<leader>fC", "<cmd>lua require('vscode').action('copyRelativeFilePa
 keymap("v", "J", ":m '>+1<CR>gv=gv")
 keymap("v", "K", ":m '<-2<CR>gv=gv")
 
--- <leader>j : Join lines (keep cursor position)
-keymap("n", "<leader>j", "mzJ`z")
 
 -- Clipboard & Selection helpers
-
 -- <leader>d : Delete without yanking
 keymap({"n", "v"}, "<leader>d", '"_d')
 

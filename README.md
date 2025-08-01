@@ -110,7 +110,7 @@ Custom keybindings and settings optimized for VSCode integration with Neovim.
    ```bash
    # Clone this repository
    git clone https://github.com/jbb-codes/vscode-neovim-config.git
-   
+
    # Copy to your Neovim config directory
    cp vscode_keymaps.lua ~/.config/nvim/lua/vscode-neovim/
    ```
