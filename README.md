@@ -23,13 +23,73 @@ Custom keybindings and settings optimized for VSCode integration with Neovim.
 #### File and Editor Management
 - `<leader>,` - Show all open editors in current group
 - `<leader>p` - Quick Open file search (Ctrl+P)
-- `<leader>q` - Close current focused editor
+- `<leader>q` - Close current focused editor and focus remaining editor
+- `<leader>w` - Save current file
+- `<leader>W` - Save all files
 - `<leader>/` - Split editor vertically
+
+#### Buffer/Tab Management
+- `<leader>bd` - Close current buffer/tab
+- `<leader>bo` - Close all other buffers/tabs except current
+- `<leader>bD` - Close all buffers/tabs
+- `<leader>bl` - Close all buffers/tabs to the left
+- `<leader>br` - Close all buffers/tabs to the right
+- `<leader>bp` - Pin/unpin current buffer/tab
+- `<leader>bu` - Reopen recently closed buffer/tab
+- `pb` - Previous buffer/tab
+- `nb` - Next buffer/tab
+- `H` - Move to first buffer/tab
+- `L` - Move to last buffer/tab
+- `<leader>1-9` - Go to specific buffer/tab by position (1-9)
+
+#### Search and Replace
+- `<leader>sr` - Search and replace in current file
+- `<leader>sR` - Search and replace in workspace
+- `<leader>ss` - Search in current file
+
+#### LSP and Code Actions
+- `K` - Show hover information
+- `<leader>ca` - Code actions (normal/visual mode)
+- `<leader>cr` - Rename symbol
+- `<leader>cf` - Format document
+
+#### Window/Split Management
+- `<leader>-` - Split window horizontally
+- `<leader>|` - Split window vertically
+- `<leader>wd` - Close current split/window
+- `<leader>ww` - Switch between splits/windows
 
 #### Navigation
 - `<leader>h` - Move focus to left editor group
 - `<leader>l` - Move focus to right editor group
 - `<leader>e` - Show and focus Explorer sidebar
+
+#### Git/Version Control
+- `<leader>gg` - Open source control panel
+- `<leader>gb` - Git blame toggle
+- `<leader>gd` - Git diff current file
+- `<leader>gs` - Git status
+- `]h` - Next git hunk/change
+- `[h` - Previous git hunk/change
+
+#### File Operations
+- `<leader>fn` - Create new file
+- `<leader>fd` - Create new folder
+- `<leader>fr` - Reveal file in Explorer
+- `<leader>fc` - Copy file path
+- `<leader>fC` - Copy relative file path
+
+#### Quick Symbol Navigation
+- `<leader>o` - Go to symbol in file
+- `<leader>O` - Go to symbol in workspace
+- `<leader>ff` - Find files (fuzzy search)
+- `<leader>fg` - Live grep / find in files
+
+#### Text Manipulation
+- `J` (visual mode) - Move selected lines down
+- `K` (visual mode) - Move selected lines up
+- `<leader>j` - Join lines (keep cursor position)
+- `<leader>d` - Delete without yanking (normal/visual mode)
 
 #### Interface Controls
 - `<leader>a` - Toggle Auxiliary Bar
