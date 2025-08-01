@@ -8,13 +8,11 @@ vim.g.mapleader = ' '
 -- keymap('n', '<leader>c', '<cmd>e ~/.config/nvim/init.lua<cr>') -- Open Neovim config
 keymap('n', 'U', '<C-r>') -- Redo
 keymap('n', '<Esc>', ':nohlsearch<cr>') -- Clear search highlight
-vim.api.nvim_set_keymap("i", "jk", "<Esc>", { noremap = true, silent = true }) -- Remap jk to <Esc> in insert mode
 
 -- Option settings
 opt.clipboard = 'unnamedplus' -- Sync system clipboard
 opt.ignorecase = true -- Ignore case in search
 opt.smartcase = true -- Override ignorecase if search has uppercase
-
 
 -- <leader>, : Show all open editors in the current group
 keymap("n", "<leader>,", "<cmd>lua require('vscode').action('workbench.action.showAllEditors')<CR>")
@@ -48,8 +46,161 @@ keymap({"n", "v"}, "<leader>wa", "<cmd>lua require('vscode').action('editor.emme
 -- <leader>/ : Split the current editor vertically
 keymap("n", "<leader>/", "<cmd>lua require('vscode').action('workbench.action.splitEditor')<CR>")
 
--- <leader>q : Close the current focused editor
-keymap("n", "<leader>q", "<cmd>lua require('vscode').action('workbench.action.closeActiveEditor')<CR>")
+-- <leader>q : Close the current focused editor and focus remaining editor
+keymap("n", "<leader>q", function()
+  require('vscode').action('workbench.action.closeActiveEditor')
+  vim.defer_fn(function()
+    require('vscode').action('workbench.action.focusActiveEditorGroup')
+  end, 50)
+end)
+
+-- <leader>w : Save the current file
+keymap("n", "<leader>w", "<cmd>lua require('vscode').action('workbench.action.files.save')<CR>")
+
+-- <leader>W : Save all files
+keymap("n", "<leader>W", "<cmd>lua require('vscode').action('workbench.action.files.saveAll')<CR>")
 
 -- <leader>cc : Focus the Copilot Chat panel
 keymap("n", "<leader>cc", "<cmd>lua require('vscode').action('workbench.panel.chat.view.copilot.focus')<CR>")
+
+-- Buffer/Tab Navigation
+-- <leader>bd : Close current buffer/tab
+keymap("n", "<leader>bd", "<cmd>lua require('vscode').action('workbench.action.closeActiveEditor')<CR>")
+
+-- <leader>bo : Close all other buffers/tabs except current
+keymap("n", "<leader>bo", "<cmd>lua require('vscode').action('workbench.action.closeOtherEditors')<CR>")
+
+-- <leader>bD : Close all buffers/tabs
+keymap("n", "<leader>bD", "<cmd>lua require('vscode').action('workbench.action.closeAllEditors')<CR>")
+
+-- <leader>bl : Close all buffers/tabs to the left
+keymap("n", "<leader>bl", "<cmd>lua require('vscode').action('workbench.action.closeEditorsToTheLeft')<CR>")
+
+-- <leader>br : Close all buffers/tabs to the right
+keymap("n", "<leader>br", "<cmd>lua require('vscode').action('workbench.action.closeEditorsToTheRight')<CR>")
+
+-- <leader>bp : Pin/unpin current buffer/tab
+keymap("n", "<leader>bp", "<cmd>lua require('vscode').action('workbench.action.pinEditor')<CR>")
+
+-- <leader>bu : Reopen recently closed buffer/tab
+keymap("n", "<leader>bu", "<cmd>lua require('vscode').action('workbench.action.reopenClosedEditor')<CR>")
+
+-- [b : Previous buffer/tab
+keymap("n", "pb", "<cmd>lua require('vscode').action('workbench.action.previousEditor')<CR>")
+
+-- ]b : Next buffer/tab
+keymap("n", "nb", "<cmd>lua require('vscode').action('workbench.action.nextEditor')<CR>")
+
+-- H : Move to first buffer/tab
+keymap("n", "H", "<cmd>lua require('vscode').action('workbench.action.firstEditorInGroup')<CR>")
+
+-- L : Move to last buffer/tab
+keymap("n", "L", "<cmd>lua require('vscode').action('workbench.action.lastEditorInGroup')<CR>")
+
+-- <leader>1-9 : Go to specific buffer/tab by position
+keymap("n", "<leader>1", "<cmd>lua require('vscode').action('workbench.action.openEditorAtIndex1')<CR>")
+keymap("n", "<leader>2", "<cmd>lua require('vscode').action('workbench.action.openEditorAtIndex2')<CR>")
+keymap("n", "<leader>3", "<cmd>lua require('vscode').action('workbench.action.openEditorAtIndex3')<CR>")
+keymap("n", "<leader>4", "<cmd>lua require('vscode').action('workbench.action.openEditorAtIndex4')<CR>")
+keymap("n", "<leader>5", "<cmd>lua require('vscode').action('workbench.action.openEditorAtIndex5')<CR>")
+keymap("n", "<leader>6", "<cmd>lua require('vscode').action('workbench.action.openEditorAtIndex6')<CR>")
+keymap("n", "<leader>7", "<cmd>lua require('vscode').action('workbench.action.openEditorAtIndex7')<CR>")
+keymap("n", "<leader>8", "<cmd>lua require('vscode').action('workbench.action.openEditorAtIndex8')<CR>")
+keymap("n", "<leader>9", "<cmd>lua require('vscode').action('workbench.action.openEditorAtIndex9')<CR>")
+
+-- Search and Replace (LazyVim style)
+-- <leader>sr : Search and replace in current file
+keymap("n", "<leader>sr", "<cmd>lua require('vscode').action('editor.action.startFindReplaceAction')<CR>")
+
+-- <leader>sR : Search and replace in workspace
+keymap("n", "<leader>sR", "<cmd>lua require('vscode').action('workbench.action.replaceInFiles')<CR>")
+
+-- <leader>ss : Search in current file
+keymap("n", "<leader>ss", "<cmd>lua require('vscode').action('actions.find')<CR>")
+
+-- K : Show hover information
+keymap("n", "K", "<cmd>lua require('vscode').action('editor.action.showHover')<CR>")
+
+-- <leader>ca : Code actions
+keymap({"n", "v"}, "<leader>ca", "<cmd>lua require('vscode').action('editor.action.quickFix')<CR>")
+
+-- <leader>cr : Rename symbol
+keymap("n", "<leader>cr", "<cmd>lua require('vscode').action('editor.action.rename')<CR>")
+
+-- <leader>cf : Format document
+keymap("n", "<leader>cf", "<cmd>lua require('vscode').action('editor.action.formatDocument')<CR>")
+
+-- Window/Split Management (LazyVim style)
+-- <leader>- : Split window horizontally
+keymap("n", "<leader>-", "<cmd>lua require('vscode').action('workbench.action.splitEditorDown')<CR>")
+
+-- <leader>| : Split window vertically
+keymap("n", "<leader>|", "<cmd>lua require('vscode').action('workbench.action.splitEditor')<CR>")
+
+-- <leader>wd : Close current split/window
+keymap("n", "<leader>wd", "<cmd>lua require('vscode').action('workbench.action.closeActiveEditor')<CR>")
+
+-- <leader>ww : Switch between splits/windows
+keymap("n", "<leader>ww", "<cmd>lua require('vscode').action('workbench.action.navigateEditorGroups')<CR>")
+
+-- Git/Version Control
+-- <leader>gg : Open source control panel
+keymap("n", "<leader>gg", "<cmd>lua require('vscode').action('workbench.view.scm')<CR>")
+
+-- <leader>gb : Git blame toggle
+keymap("n", "<leader>gb", "<cmd>lua require('vscode').action('gitlens.toggleFileBlame')<CR>")
+
+-- <leader>gd : Git diff current file
+keymap("n", "<leader>gd", "<cmd>lua require('vscode').action('git.openChange')<CR>")
+
+-- <leader>gs : Git status
+keymap("n", "<leader>gs", "<cmd>lua require('vscode').action('git.openChange')<CR>")
+
+-- ]h : Next git hunk/change
+keymap("n", "]h", "<cmd>lua require('vscode').action('workbench.action.editor.nextChange')<CR>")
+
+-- [h : Previous git hunk/change
+keymap("n", "[h", "<cmd>lua require('vscode').action('workbench.action.editor.previousChange')<CR>")
+
+-- Quick Actions & Utilities
+-- <leader>fn : Create new file
+keymap("n", "<leader>fn", "<cmd>lua require('vscode').action('explorer.newFile')<CR>")
+
+-- <leader>fd : Create new folder
+keymap("n", "<leader>fd", "<cmd>lua require('vscode').action('explorer.newFolder')<CR>")
+
+-- <leader>fr : Reveal file in Explorer
+keymap("n", "<leader>fr", "<cmd>lua require('vscode').action('revealFileInOS')<CR>")
+
+-- <leader>fc : Copy file path
+keymap("n", "<leader>fc", "<cmd>lua require('vscode').action('copyFilePath')<CR>")
+
+-- <leader>fC : Copy relative file path
+keymap("n", "<leader>fC", "<cmd>lua require('vscode').action('copyRelativeFilePath')<CR>")
+
+-- Text Manipulation (common Vim patterns)
+-- J/K : Move lines up/down in visual mode
+keymap("v", "J", ":m '>+1<CR>gv=gv")
+keymap("v", "K", ":m '<-2<CR>gv=gv")
+
+-- <leader>j : Join lines (keep cursor position)
+keymap("n", "<leader>j", "mzJ`z")
+
+-- Clipboard & Selection helpers
+
+-- <leader>d : Delete without yanking
+keymap({"n", "v"}, "<leader>d", '"_d')
+
+-- Quick Symbol Navigation
+-- <leader>o : Go to symbol in file
+keymap("n", "<leader>o", "<cmd>lua require('vscode').action('workbench.action.gotoSymbol')<CR>")
+
+-- <leader>O : Go to symbol in workspace
+keymap("n", "<leader>O", "<cmd>lua require('vscode').action('workbench.action.showAllSymbols')<CR>")
+
+-- Telescope-style Additional Pickers
+-- <leader>ff : Find files (same as <leader>p but more explicit)
+keymap("n", "<leader>ff", "<cmd>lua require('vscode').action('extension.fuzzySearch')<CR>")
+
+-- <leader>fg : Live grep / find in files
+keymap("n", "<leader>fg", "<cmd>lua require('vscode').action('workbench.action.findInFiles')<CR>")
